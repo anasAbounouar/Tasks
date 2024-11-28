@@ -9,7 +9,7 @@
 //     }
 // }
 
-const mongoose = require("mongoose")
+
 const Comment = require("../models/Comment")
 
 // add a comment to a task 

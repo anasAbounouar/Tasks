@@ -1,7 +1,7 @@
 // backend/models/Category.js
 
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const {sequelize} = require('../config/db');
 
 /**
  * Category Model

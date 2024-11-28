@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
  * Attachment Schema
  * Represents an attachment/file associated with a specific task.
  */
-const attachementSchema = new mongoose.Schema({
+const attachmentSchema = new mongoose.Schema({
     taskId: {
         type: Number,   // ID of the associated task (from sql db)
         require: true,  // taskId is required
@@ -28,4 +28,4 @@ const attachementSchema = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('Attachement', attachementSchema);
+module.exports = mongoose.model('Attachement', attachmentSchema);

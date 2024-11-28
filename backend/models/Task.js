@@ -1,6 +1,6 @@
 
 // backend/models/Task.js
-const sequelize = require('../config/db');
+const {sequelize }= require('../config/db');
 const { DataTypes } = require('sequelize');
 
 const Category =require("./Category")
