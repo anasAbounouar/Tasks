@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-dropzone": "^14.3.5",
+    "react-image-lightbox": "^5.1.4"
+  }
+}

@@ -41,15 +41,20 @@ exports.addComment = async (req, res, next) => {
 
 
 exports.getAllComments = async (req, res, next) => {
-    const { taskId } = req.params;
+    let { taskId } = req.params;
+    taskId = parseInt(taskId)
+     if (isNaN(taskId)) {
+        return res.status(400).json({ error: `Invalid task ID: ${req.params.taskId} ` });
+      }
+    
     try {
           // Find all comments associated with the taskId, sorted by newest first
-        const comments = await Comment.find({ taskId: parseInt(taskId) }).sort({ createdAt: -1 });
-
+        const comments = await Comment.find({ taskId }).sort({ createdAt: -1 });
+        console.log('Comments found:', comments); // Debugging log
         res.json(comments);
 
     } catch (err) {
-        console.error(`Error fetching comments for task ID ${taskId}:`, err);
+        console.error(` Error fetching comments for task ID ${taskId}:`, err);
         next(err);
     }
 }
@@ -59,7 +64,7 @@ exports.getAllComments = async (req, res, next) => {
 // Delete a comment by commentId
 
 
-exports.deleteCommentById = async (req, res, next) => {
+exports.deleteCommentByCommentId = async (req, res, next) => {
     const { commentId } = req.params;
 
     try {

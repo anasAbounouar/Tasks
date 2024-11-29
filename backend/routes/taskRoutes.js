@@ -24,7 +24,7 @@ router.get("/:taskId", taskController.getTaskById);
 // @desc add  task 
 // @access Public
 
-router.get("/", taskController.addTask);
+router.post("/", taskController.addTask);
 
 
 
@@ -32,7 +32,7 @@ router.get("/", taskController.addTask);
 // @desc update  task by taskId 
 // @access Public
 
-router.get("/:taskId", taskController.updateTaskById);
+router.put("/:taskId", taskController.updateTaskById);
 
 
 
@@ -40,7 +40,7 @@ router.get("/:taskId", taskController.updateTaskById);
 // @desc delete  task by taskId 
 // @access Public
 
-router.get("/:taskId", taskController.deleteTaskById);
+router.delete("/:taskId", taskController.deleteTaskById);
 
 
 module.exports = router;

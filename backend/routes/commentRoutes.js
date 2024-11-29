@@ -8,20 +8,19 @@ const router = express.Router();
 // @desc get all comments of a task
 // @access Public
 
-router.get("/", commentController.getAllComments);
+router.get("/:taskId/comments", commentController.getAllComments);
 
 // @route Delete / api / tasks /: taskId / comments/:commentId
 // @desc delete a comment  of a task by commentId
 // @access Public
 
-router.get("/:commentId", commentController.deleteCommentById);
+router.delete("/:taskId/comments/:commentId", commentController.deleteCommentByCommentId);
 
 // @route Post  / api / tasks /: taskId / comments
 // @desc add a comment for a task 
 // @access Public
 
-router.get("/", commentController.addComment);
-
+router.post("/:taskId/comments", commentController.addComment);
 module.exports = router;
 
 

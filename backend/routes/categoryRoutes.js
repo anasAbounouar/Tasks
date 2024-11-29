@@ -15,13 +15,13 @@ router.get("/", categoryController.getAllCategories);
 // @route  Post  /api/categories
 // @desc  create  category
 // @access public
-router.get("/", categoryController.createCategory);
+router.post("/", categoryController.createCategory);
 
 // @route  Delete /api/categories/:categoryId
 // @desc  delete category by categoryId
 // @access public
 
-router.get("/:categoryId", categoryController.deleteCategory);
+router.delete("/:categoryId", categoryController.deleteCategory);
 
 module.exports = router;
 

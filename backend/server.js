@@ -28,8 +28,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/tasks', taskRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api/tasks/:taskId/comments', commentRoutes);
-app.use('/api/tasks/:taskId/attachments', attachmentRoutes);
+app.use('/api/tasks', commentRoutes);
+app.use('/api/tasks', attachmentRoutes);
 
 // Error handlling middleware (last as always)
 
