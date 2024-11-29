@@ -4,33 +4,37 @@ const path = require('path');
 
 // Upload attachment
 exports.uploadAttachment = async (req, res, next) => {
-    let { taskId } = req.params;
-    taskId = parseInt(taskId);
-
-    if (isNaN(taskId)) {
-        return res.status(400).json({ error: `Invalid task ID: ${req.params.taskId}` });
-    }
-
-    if (!req.file) {
-        return res.status(400).json({ msg: 'No file uploaded' });
-    }
-
-    const modifiedFileName = req.file.filename;
-
     try {
-        // Create a new attachment associated with the taskId
-        const attachment = await Attachment.create({
+        const { taskId } = req.params;
+
+        // Multer saves the file as req.file, which contains the file info
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded.' });
+        }
+
+        const fileName = req.file.filename; // Get the saved file's name
+        const filePath = req.file.path; // Get the full path to the uploaded file
+
+        // Create a new attachment document
+        const newAttachment = new Attachment({
             taskId,
-            fileName: modifiedFileName,
-            filePath: path.join('uploads', modifiedFileName), // Corrected file path
+            fileName,
+            filePath,
         });
 
-        res.status(201).json(attachment);
+        // Save the new attachment to the database
+        await newAttachment.save();
+
+        res.status(201).json({
+            message: 'Attachment added successfully!',
+            attachment: newAttachment,
+        });
     } catch (err) {
-        console.error("Server Error in Uploading File", err);
+        console.error('Error adding attachment:', err);
         next(err);
     }
 };
+
 
 // Retrieve all attachments for a specific task
 exports.getAttachmentsBytaskId = async (req, res, next) => {

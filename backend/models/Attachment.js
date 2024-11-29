@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const attachmentSchema = new mongoose.Schema({
     taskId: {
         type: Number,   // ID of the associated task (from sql db)
-        require: true,  // taskId is required
+        required: true,  // taskId is required
     },
     fileName: {
         type: String,

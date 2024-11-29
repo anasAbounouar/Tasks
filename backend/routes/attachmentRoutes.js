@@ -1,20 +1,36 @@
-const attachmentController = require('../controllers/attachmentController');
-const express = require('express');
-const router = express.Router();
 const multer = require("multer");
+const path = require("path");
+const express = require("express");
+const attachmentController = require("../controllers/attachmentController");
 
-// Configure Multer for file uploads
+const router = express.Router();
+
+// Set up storage engine for multer
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Ensure this points to the correct folder
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix);
-    }
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../uploads")); // Specify the folder where to store uploaded files
+  },
+  filename: (req, file, cb) => {
+    // Create a unique filename for each uploaded file
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-const upload = multer({ storage: storage });
+// Initialize multer with the storage configuration
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10 MB
+  fileFilter: (req, file, cb) => {
+    // Allow only image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('File type not supported'), false);
+    }
+  },
+});
+
+
 
 // @Route GET /api/tasks/:taskId/attachments
 // @desc Get all attachments for a Task
